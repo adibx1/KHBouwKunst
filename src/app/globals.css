@@ -199,7 +199,10 @@ a {
   text-transform: uppercase;
 }
 
-.title-accent {
+/* Opt a heading into the brand yellow. Listed alongside the hero selector so
+   it still wins over the hero's default light text. */
+.title-accent,
+.hero .title-accent {
   color: var(--accent);
 }
 
