@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { CtaBand } from "@/components/cta-band";
-import { PageHeader } from "@/components/page-header";
+import { HeroHeader } from "@/components/hero-header";
 import { steps } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -12,10 +12,12 @@ export const metadata: Metadata = {
 export default function ProcessPage() {
   return (
     <>
-      <PageHeader
+      <HeroHeader
         kicker="Werkwijze"
         title="Zo pakken we uw project aan"
         lede="Een goed resultaat begint met een goed proces. Dit zijn de stappen die we bij elk project doorlopen."
+        image="img_301"
+        alt="Casco met kapconstructie tijdens de bouw"
       />
 
       <section className="wrap pad-md">

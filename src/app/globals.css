@@ -552,6 +552,44 @@ a {
   text-wrap: pretty;
 }
 
+.hero__lede {
+  color: var(--light-2);
+  font-size: clamp(16px, 1.4vw, 20px);
+  line-height: 1.55;
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+
+.hero__note {
+  margin-top: 20px;
+  color: var(--light-3);
+  font-size: 16px;
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+
+/* Page titles sit on the dark scrim when a hero carries a photo. */
+.hero .title-page {
+  color: var(--light);
+}
+
+.hero__back {
+  display: inline-block;
+  margin-bottom: 26px;
+  color: var(--light);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 3px;
+}
+
+.hero__back:hover {
+  color: var(--accent);
+}
+
 .hero__actions {
   display: flex;
   flex-wrap: wrap;

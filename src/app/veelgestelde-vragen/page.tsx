@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FaqList } from "@/components/faq-list";
-import { PageHeader } from "@/components/page-header";
+import { HeroHeader } from "@/components/hero-header";
 import { faqs } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -29,10 +29,12 @@ export default function FaqPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <PageHeader
+      <HeroHeader
         kicker="Veelgestelde vragen"
         title="Antwoorden voordat u belt"
         lede="De vragen die we het vaakst krijgen over verbouwen, renoveren en bouwen met KH Bouw Kunst."
+        image="img_312"
+        alt="Afgewerkte woonkamer na een renovatie"
       />
 
       <section className="wrap wrap--narrow" style={{ paddingBlock: "clamp(36px,5vw,72px)" }}>

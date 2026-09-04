@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@/components/icons";
-import { PageHeader } from "@/components/page-header";
+import { HeroHeader } from "@/components/hero-header";
 import { services } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -14,10 +14,12 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
-      <PageHeader
+      <HeroHeader
         kicker="Diensten"
         title="Van fundering tot laatste likje verf"
         lede="KH Bouw Kunst voert bouwprojecten uit in elke fase en op elke schaal. Bekijk hieronder waarmee we u kunnen helpen."
+        image="img_302"
+        alt="Opgeleverde woning gebouwd door KH Bouw Kunst"
       />
 
       <section className="wrap pad-lg">

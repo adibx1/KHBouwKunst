@@ -33,17 +33,36 @@ export default async function ProjectPage(props: PageProps<"/projecten/[slug]">)
 
   return (
     <>
-      <section style={{ borderBottom: "var(--rule)" }}>
-        <div className="wrap" style={{ paddingBlock: "clamp(32px,4vw,60px)" }}>
-          <Link href="/projecten" className="link-rule" style={{ marginBottom: 26 }}>
+      <section className="hero hero--short">
+        <div className="hero__media">
+          <Image
+            src={`/images/${project.imgAfter}.jpg`}
+            alt={`${project.title}, na oplevering`}
+            fill
+            priority
+            sizes="100vw"
+            style={{ objectFit: "cover" }}
+          />
+        </div>
+        <div className="hero__scrim" />
+        <div className="hero__body">
+          <Link href="/projecten" className="hero__back">
             ← Alle projecten
           </Link>
+          <p className="kicker kicker--accent" style={{ marginBottom: 16 }}>
+            {project.type} · {project.regio}
+          </p>
           <h1
             className="title-page"
-            style={{ fontSize: "clamp(30px,4.6vw,64px)", maxWidth: "22ch", margin: "0 0 24px" }}
+            style={{ fontSize: "clamp(30px,4.6vw,64px)", maxWidth: "22ch" }}
           >
             {project.title}
           </h1>
+        </div>
+      </section>
+
+      <section style={{ borderBottom: "var(--rule)" }}>
+        <div className="wrap" style={{ paddingBlock: "clamp(28px,3vw,44px)" }}>
           <div className="facts">
             {facts.map((fact) => (
               <div className="facts__cell" key={fact.label}>

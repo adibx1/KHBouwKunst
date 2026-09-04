@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { ContactForm } from "@/components/contact-form";
 import { Icon, type IconKey } from "@/components/icons";
-import { PageHeader } from "@/components/page-header";
+import { HeroHeader } from "@/components/hero-header";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -22,16 +22,18 @@ const contactRows: Array<{ label: string; value: string; icon: IconKey; href?: s
 export default function ContactPage() {
   return (
     <>
-      <PageHeader
+      <HeroHeader
         kicker="Contact"
         title="Laten we kennismaken met uw plannen"
         lede="Of u nu al een concreet plan heeft of nog in de verkennende fase zit: we denken graag met u mee."
+        image="img_352"
+        alt="Afgerond gevelonderhoud aan een woning"
       >
-        <p className="note" style={{ marginTop: 20, maxWidth: "66ch" }}>
+        <p className="hero__note" style={{ maxWidth: "66ch" }}>
           Vul het formulier in of neem telefonisch contact op. We reageren binnen één werkdag en
           plannen, indien gewenst, een vrijblijvende opname op locatie in.
         </p>
-      </PageHeader>
+      </HeroHeader>
 
       <section className="wrap pad-md split">
         <div>

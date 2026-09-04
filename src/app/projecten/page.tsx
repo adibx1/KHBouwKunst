@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { CtaBand } from "@/components/cta-band";
-import { PageHeader } from "@/components/page-header";
+import { HeroHeader } from "@/components/hero-header";
 import { ProjectFilter } from "@/components/project-filter";
 
 export const metadata: Metadata = {
@@ -12,18 +12,20 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <>
-      <PageHeader
+      <HeroHeader
         kicker="Projecten"
         title="Ons werk spreekt voor zich"
         lede="Elk project heeft een eigen verhaal, een eigen uitdaging en een eigen oplossing. Hieronder vindt u een selectie van recent afgeronde projecten."
+        image="img_322"
+        alt="Opgeleverde uitbouw met tuin, uitgevoerd door KH Bouw Kunst"
       >
-        <p className="note" style={{ marginTop: 24, maxWidth: "70ch" }}>
+        <p className="hero__note" style={{ maxWidth: "70ch" }}>
           We geloven dat foto&apos;s meer zeggen dan beloftes. Daarom laten we ons werk graag zien:
           de vloer voor en na de renovatie, de aanbouw voor en na de oplevering, de nieuwbouwwoning
           van fundering tot sleuteloverdracht. Elk project op deze pagina is uitgevoerd door ons
           eigen team.
         </p>
-      </PageHeader>
+      </HeroHeader>
 
       <section className="wrap" style={{ paddingBlock: "clamp(32px,4vw,48px)" }}>
         <ProjectFilter />
