@@ -19,7 +19,7 @@ export default function ProjectsPage() {
         image="img_322"
         alt="Opgeleverde uitbouw met tuin, uitgevoerd door KH Bouw Kunst"
       >
-        <p className="hero__note" style={{ maxWidth: "70ch" }}>
+        <p className="hero__note">
           We geloven dat foto&apos;s meer zeggen dan beloftes. Daarom laten we ons werk graag zien:
           de vloer voor en na de renovatie, de aanbouw voor en na de oplevering, de nieuwbouwwoning
           van fundering tot sleuteloverdracht. Elk project op deze pagina is uitgevoerd door ons
@@ -27,7 +27,7 @@ export default function ProjectsPage() {
         </p>
       </HeroHeader>
 
-      <section className="wrap" style={{ paddingBlock: "clamp(32px,4vw,48px)" }}>
+      <section className="wrap projects-list">
         <ProjectFilter />
       </section>
 

@@ -12,8 +12,6 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    // The design canvas export is a read-only reference, not project source.
-    "Building and architecture website/**",
   ]),
 ]);
 

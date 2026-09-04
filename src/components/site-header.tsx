@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { navItems } from "@/lib/site";
+import { navItems } from "@/content";
 
 function isActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/";

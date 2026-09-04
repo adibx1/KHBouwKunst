@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { FaqList } from "@/components/faq-list";
 import { HeroHeader } from "@/components/hero-header";
-import { faqs } from "@/lib/content";
+import { faqs } from "@/content";
 
 export const metadata: Metadata = {
   title: "Veelgestelde vragen",
@@ -10,6 +10,7 @@ export const metadata: Metadata = {
     "Antwoorden op de meest gestelde vragen over verbouwen, renoveren en bouwen met KH Bouw Kunst.",
 };
 
+/** Structured data so the questions can surface directly in search results. */
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -25,7 +26,7 @@ export default function FaqPage() {
     <>
       <script
         type="application/ld+json"
-        // Static, author-controlled content from lib/content.
+        // Static, author-controlled content from src/content.
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
@@ -37,7 +38,7 @@ export default function FaqPage() {
         alt="Afgewerkte woonkamer na een renovatie"
       />
 
-      <section className="wrap wrap--narrow" style={{ paddingBlock: "clamp(36px,5vw,72px)" }}>
+      <section className="wrap wrap--narrow faq-page">
         <FaqList />
 
         <div className="faq__foot">

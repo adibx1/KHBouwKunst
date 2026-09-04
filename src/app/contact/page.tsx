@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { ContactForm } from "@/components/contact-form";
-import { Icon, type IconKey } from "@/components/icons";
 import { HeroHeader } from "@/components/hero-header";
-import { site } from "@/lib/site";
+import { Icon, type IconKey } from "@/components/icons";
+import { site } from "@/content";
 
 export const metadata: Metadata = {
   title: "Contact | Offerte aanvragen",
@@ -29,7 +29,7 @@ export default function ContactPage() {
         image="img_352"
         alt="Afgerond gevelonderhoud aan een woning"
       >
-        <p className="hero__note" style={{ maxWidth: "66ch" }}>
+        <p className="hero__note">
           Vul het formulier in of neem telefonisch contact op. We reageren binnen één werkdag en
           plannen, indien gewenst, een vrijblijvende opname op locatie in.
         </p>
@@ -42,9 +42,7 @@ export default function ContactPage() {
 
         <div>
           <div className="contact-rows">
-            <h2 className="title-block" style={{ marginBottom: 26 }}>
-              Direct contact
-            </h2>
+            <h2 className="title-block">Direct contact</h2>
             {contactRows.map((row) => (
               <div className="contact-row" key={row.label}>
                 <Icon name={row.icon} size={22} weight={1.7} />
@@ -68,11 +66,8 @@ export default function ContactPage() {
               alt="Eindhoven, de vestigingsplaats van KH Bouw Kunst"
               fill
               sizes="(max-width: 900px) 100vw, 620px"
-              style={{ objectFit: "cover" }}
             />
-            <span className="frame__tag frame__tag--ink">
-              Eindhoven, werkgebied heel Nederland
-            </span>
+            <span className="frame__tag frame__tag--ink">Eindhoven, werkgebied heel Nederland</span>
           </div>
         </div>
       </section>

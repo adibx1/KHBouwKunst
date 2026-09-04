@@ -3,14 +3,13 @@ import Link from "next/link";
 import { CtaBand } from "@/components/cta-band";
 import { Icon } from "@/components/icons";
 import { ProjectCard } from "@/components/project-card";
-import { projects, reasons, reviews, services, stats } from "@/lib/content";
+import { projects, reasons, reviews, services, stats } from "@/content";
 
 export default function HomePage() {
   const featured = projects.slice(0, 4);
 
   return (
     <>
-      {/* Hero */}
       <section className="hero">
         <div className="hero__media">
           <Image
@@ -19,18 +18,13 @@ export default function HomePage() {
             fill
             priority
             sizes="100vw"
-            style={{ objectFit: "cover" }}
           />
         </div>
         <div className="hero__scrim" />
         <div className="hero__body">
-          <p className="hero__badge" style={{ marginBottom: 22 }}>
-            Aannemersbedrijf voor heel Nederland
-          </p>
-          <h1 className="title-hero title-accent" style={{ marginBottom: 22 }}>
-            Bouwen is een vak. Wij maken er kunst van.
-          </h1>
-          <p className="hero__sub" style={{ marginBottom: 38 }}>
+          <p className="hero__badge">Aannemersbedrijf voor heel Nederland</p>
+          <h1 className="title-hero">Bouwen is een vak. Wij maken er kunst van.</h1>
+          <p className="hero__sub">
             KH Bouw Kunst is uw aannemer voor nieuwbouw, verbouwing, renovatie en aanbouw in heel
             Nederland. Van eerste schets tot de laatste schroef.
           </p>
@@ -45,7 +39,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Kerncijfers */}
       <section className="band-ink">
         <div className="stats">
           {stats.map((stat) => (
@@ -57,16 +50,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Introductie */}
-      <section className="wrap" style={{ paddingTop: "clamp(56px,7vw,104px)" }}>
-        <div
-          className="split"
-          style={{ paddingBottom: "clamp(48px,6vw,88px)", borderBottom: "var(--rule)" }}
-        >
-          <h2
-            className="title-sub title-accent"
-            style={{ fontSize: "clamp(26px,3.2vw,44px)", maxWidth: "22ch" }}
-          >
+      <section className="wrap home-intro">
+        <div className="split home-intro__inner">
+          <h2 className="title-sub title-accent">
             Een goed gebouw begint niet met stenen, maar met vertrouwen
           </h2>
           <div>
@@ -86,21 +72,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Diensten */}
       <section className="wrap pad-lg">
-        <p className="kicker" style={{ marginBottom: 12 }}>
-          01 Onze diensten
-        </p>
-        <div className="section-head" style={{ marginBottom: 8 }}>
+        <p className="kicker">01 Onze diensten</p>
+        <div className="section-head">
           <h2 className="title-section title-accent">Alles onder één dak</h2>
           <Link href="/diensten" className="link-rule">
             Bekijk al onze diensten
           </Link>
         </div>
-        <p
-          className="lede"
-          style={{ marginBottom: 40, fontSize: 17, lineHeight: 1.6, maxWidth: "60ch" }}
-        >
+        <p className="section-lede">
           Van de eerste tekening tot de sleuteloverdracht. KH Bouw Kunst voert het complete traject
           uit of sluit precies aan op het onderdeel waar u ons voor nodig heeft.
         </p>
@@ -115,13 +95,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Waarom KH Bouw Kunst */}
-      <section className="band-ruled">
+      <section className="band-ruled home-reasons">
         <div className="wrap pad-xl">
-          <p className="kicker" style={{ marginBottom: 12 }}>
-            02 Waarom KH Bouw Kunst
-          </p>
-          <h2 className="title-section title-accent" style={{ marginBottom: 48, maxWidth: "24ch" }}>
+          <p className="kicker">02 Waarom KH Bouw Kunst</p>
+          <h2 className="title-section title-accent section-heading">
             Waarom klanten voor ons kiezen
           </h2>
           <div className="cells">
@@ -136,21 +113,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Projecten uitgelicht */}
       <section className="wrap pad-xl">
-        <p className="kicker" style={{ marginBottom: 12 }}>
-          03 Projecten uitgelicht
-        </p>
-        <div className="section-head" style={{ marginBottom: 8 }}>
+        <p className="kicker">03 Projecten uitgelicht</p>
+        <div className="section-head">
           <h2 className="title-section title-accent">Een greep uit ons werk</h2>
           <Link href="/projecten" className="link-rule">
             Bekijk alle projecten
           </Link>
         </div>
-        <p
-          className="lede"
-          style={{ marginBottom: 44, fontSize: 17, lineHeight: 1.6, maxWidth: "60ch" }}
-        >
+        <p className="section-lede">
           Elk project is anders, maar de aanpak is altijd hetzelfde: goed luisteren, zorgvuldig
           bouwen en op tijd opleveren. Bekijk enkele recente projecten.
         </p>
@@ -161,15 +132,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Klantreviews */}
-      <section className="band-ink" style={{ borderTop: "var(--rule)" }}>
+      <section className="band-ink home-reviews">
         <div className="wrap pad-xl">
-          <p className="kicker kicker--accent" style={{ marginBottom: 12 }}>
-            04 Klantreviews
-          </p>
-          <h2 className="title-section title-accent" style={{ marginBottom: 48 }}>
-            Wat opdrachtgevers zeggen
-          </h2>
+          <p className="kicker kicker--accent">04 Klantreviews</p>
+          <h2 className="title-section section-heading">Wat opdrachtgevers zeggen</h2>
           <div className="reviews">
             {reviews.map((review) => (
               <div className="review" key={review.name}>
@@ -181,7 +147,7 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-          <p style={{ marginTop: 36, color: "var(--muted-3)", fontSize: 13 }}>
+          <p className="home-reviews__note">
             Plaatsvervangende reviews, te vervangen door echte Google reviews.
           </p>
         </div>

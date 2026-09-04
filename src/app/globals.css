@@ -149,6 +149,7 @@ a {
 /* — type ——————————————————————————————————————————————————————————— */
 
 .kicker {
+  margin-bottom: 16px;
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.18em;
@@ -225,13 +226,6 @@ a {
 
 .body-text + .body-text {
   margin-top: 18px;
-}
-
-.note {
-  font-size: 16px;
-  line-height: 1.7;
-  color: var(--muted-2);
-  text-wrap: pretty;
 }
 
 /* — buttons and links —————————————————————————————————————————————— */
@@ -534,6 +528,7 @@ a {
 }
 
 .hero__badge {
+  margin-bottom: 22px;
   display: inline-block;
   background: var(--accent);
   color: var(--ink);
@@ -545,6 +540,7 @@ a {
 }
 
 .hero__sub {
+  margin-bottom: 38px;
   color: var(--light-2);
   font-size: clamp(16px, 1.5vw, 21px);
   line-height: 1.5;
@@ -562,6 +558,7 @@ a {
 
 .hero__note {
   margin-top: 20px;
+  max-width: 70ch;
   color: var(--light-3);
   font-size: 16px;
   line-height: 1.7;
@@ -569,8 +566,15 @@ a {
 }
 
 /* Page titles sit on the dark scrim when a hero carries a photo. */
-.hero .title-page {
+.hero .title-page,
+.hero .title-hero {
   color: var(--light);
+  margin-bottom: 22px;
+}
+
+/* The last thing in a hero never carries a trailing gap. */
+.hero__body > :last-child {
+  margin-bottom: 0;
 }
 
 .hero__back {
@@ -605,7 +609,9 @@ a {
   overflow: hidden;
 }
 
-.frame img {
+.frame img,
+.hero__media img,
+.service-card__media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -678,6 +684,7 @@ a {
 }
 
 .section-head {
+  margin-bottom: 8px;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
@@ -1351,4 +1358,189 @@ a.contact-row__value:hover {
   * {
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ==========================================================================
+   Page blocks
+   One class per section of the site. Pages stay as plain markup; every
+   measurement lives here.
+   ========================================================================== */
+
+/* — app shell — */
+
+.site-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.site-main {
+  flex: 1 0 auto;
+}
+
+/* — shared section furniture — */
+
+/** An h2 that opens a block, with its standard gap to the content below. */
+.section-heading {
+  margin-bottom: 48px;
+}
+
+/** The paragraph that introduces a section, under its heading. */
+.section-lede {
+  margin-bottom: 40px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 60ch;
+  text-wrap: pretty;
+}
+
+/* — home — */
+
+.home-intro {
+  padding-top: clamp(56px, 7vw, 104px);
+}
+
+.home-intro__inner {
+  padding-bottom: clamp(48px, 6vw, 88px);
+  border-bottom: var(--rule);
+}
+
+.home-intro h2 {
+  font-size: clamp(26px, 3.2vw, 44px);
+  max-width: 22ch;
+}
+
+.home-reasons h2 {
+  max-width: 24ch;
+}
+
+.home-reviews h2 {
+  color: var(--accent);
+}
+
+.home-reviews__note {
+  margin-top: 36px;
+  color: var(--muted-3);
+  font-size: 13px;
+}
+
+/* — over ons — */
+
+.about-story h2 {
+  font-size: clamp(26px, 3.2vw, 42px);
+  margin-bottom: 26px;
+}
+
+.about-story__media {
+  height: clamp(320px, 40vw, 520px);
+}
+
+.mission p {
+  color: var(--ink);
+  font-size: clamp(23px, 3.2vw, 44px);
+  line-height: 1.22;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-wrap: pretty;
+}
+
+/* — diensten — */
+
+.services-why h2 {
+  color: var(--light);
+  max-width: 22ch;
+}
+
+.services-why p {
+  margin-bottom: 28px;
+  color: var(--light-3);
+  font-size: 17px;
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+
+/* — dienst detail — */
+
+.service-body p {
+  margin-bottom: 20px;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.service-points {
+  border-top: var(--rule);
+  padding-top: 26px;
+}
+
+.service-points h2 {
+  margin-bottom: 24px;
+}
+
+.service-gallery {
+  padding-bottom: clamp(48px, 6vw, 88px);
+}
+
+.service-gallery h2 {
+  margin-bottom: 28px;
+  font-size: clamp(22px, 2.6vw, 34px);
+}
+
+.service-others {
+  border-top: var(--rule);
+}
+
+/* — projecten — */
+
+.projects-list {
+  padding-block: clamp(32px, 4vw, 48px);
+}
+
+.projects-list__filters {
+  margin-bottom: clamp(28px, 3vw, 44px);
+}
+
+.project-facts {
+  padding-block: clamp(28px, 3vw, 44px);
+  border-bottom: var(--rule);
+}
+
+.project-story {
+  margin-bottom: clamp(36px, 4vw, 60px);
+}
+
+.project-story h2 {
+  margin-bottom: 18px;
+}
+
+/* — veelgestelde vragen — */
+
+.faq-page {
+  padding-block: clamp(36px, 5vw, 72px);
+}
+
+/* — contact — */
+
+.contact-rows h2 {
+  margin-bottom: 26px;
+}
+
+/* — closing cta band — */
+
+.cta--accent h2 {
+  color: var(--ink);
+}
+
+.cta--accent p {
+  color: var(--accent-ink);
+}
+
+.cta--ink h2 {
+  color: var(--light);
+}
+
+.cta--ink p {
+  color: var(--light-3);
 }

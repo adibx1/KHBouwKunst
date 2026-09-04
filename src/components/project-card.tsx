@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { projectMeta, type Project } from "@/lib/content";
+import { projectMeta, type Project } from "@/content";
 
 export function ProjectCard({ project }: { project: Project }) {
   return (
@@ -11,7 +11,6 @@ export function ProjectCard({ project }: { project: Project }) {
           alt={`${project.type} in ${project.regio}: ${project.title}`}
           fill
           sizes="(max-width: 700px) 100vw, (max-width: 1320px) 50vw, 420px"
-          style={{ objectFit: "cover" }}
         />
         <span className="frame__tag">{project.type}</span>
       </div>

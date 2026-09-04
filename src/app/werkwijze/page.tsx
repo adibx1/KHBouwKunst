@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { CtaBand } from "@/components/cta-band";
 import { HeroHeader } from "@/components/hero-header";
-import { steps } from "@/lib/content";
+import { steps } from "@/content";
 
 export const metadata: Metadata = {
   title: "Werkwijze | Zo werkt KH Bouw Kunst aan uw project",

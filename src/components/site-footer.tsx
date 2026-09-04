@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { services } from "@/lib/content";
-import { navItems, site } from "@/lib/site";
+import { navItems, services, site } from "@/content";
 
 export function SiteFooter() {
   return (

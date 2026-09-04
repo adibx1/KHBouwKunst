@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Icon } from "@/components/icons";
-import { approach } from "@/lib/content";
+import { approach } from "@/content";
 
 export const metadata: Metadata = {
   title: "Over KH Bouw Kunst | Uw aannemer met vakmanschap en ervaring",
@@ -20,38 +20,23 @@ export default function AboutPage() {
             fill
             priority
             sizes="100vw"
-            style={{ objectFit: "cover" }}
           />
         </div>
         <div className="hero__scrim" />
         <div className="hero__body">
-          <p className="kicker kicker--accent" style={{ marginBottom: 16 }}>
-            Over ons
-          </p>
-          <h1
-            className="title-hero"
-            style={{ fontSize: "clamp(32px,5.2vw,72px)", maxWidth: "19ch", marginBottom: 20 }}
-          >
-            Gebouwd op vakmanschap, niet op praatjes
-          </h1>
-          <p className="hero__sub" style={{ maxWidth: "60ch" }}>
+          <p className="kicker kicker--accent">Over ons</p>
+          <h1 className="title-page">Gebouwd op vakmanschap, niet op praatjes</h1>
+          <p className="hero__lede">
             KH Bouw Kunst combineert het beste van twee werelden: de degelijkheid van een ervaren
             bouwbedrijf en de precisie van een team dat trots is op elk detail.
           </p>
         </div>
       </section>
 
-      <section className="wrap pad-xl split">
+      <section className="wrap pad-xl split about-story">
         <div>
-          <p className="kicker" style={{ marginBottom: 12 }}>
-            Ons verhaal
-          </p>
-          <h2
-            className="title-sub"
-            style={{ fontSize: "clamp(26px,3.2vw,42px)", marginBottom: 26 }}
-          >
-            Bouwen zou geen bron van stress moeten zijn
-          </h2>
+          <p className="kicker">Ons verhaal</p>
+          <h2 className="title-sub">Bouwen zou geen bron van stress moeten zijn</h2>
           <p className="body-text">
             KH Bouw Kunst is opgericht vanuit een simpel idee: bouwen zou geen bron van stress
             moeten zijn. Te vaak horen we verhalen van eigenaren die achteraf voor verrassingen
@@ -71,22 +56,19 @@ export default function AboutPage() {
             toekomstbestendig maakten.
           </p>
         </div>
-        <div className="frame" style={{ height: "clamp(320px,40vw,520px)" }}>
+        <div className="frame about-story__media">
           <Image
             src="/images/kh-about-story.jpg"
             alt="Detailfoto van vakwerk op de bouwplaats"
             fill
             sizes="(max-width: 900px) 100vw, 620px"
-            style={{ objectFit: "cover" }}
           />
         </div>
       </section>
 
       <section className="band-ruled">
         <div className="wrap pad-xl">
-          <h2 className="title-sub" style={{ marginBottom: 48 }}>
-            Onze aanpak
-          </h2>
+          <h2 className="title-sub section-heading">Onze aanpak</h2>
           <div className="cells">
             {approach.map((item) => (
               <div className="cell" key={item.title}>
@@ -99,21 +81,10 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="band-accent">
+      <section className="band-accent mission">
         <div className="wrap wrap--mid pad-xl">
-          <p className="kicker kicker--on-accent" style={{ marginBottom: 26 }}>
-            Onze missie
-          </p>
-          <p
-            style={{
-              color: "var(--ink)",
-              fontSize: "clamp(23px,3.2vw,44px)",
-              lineHeight: 1.22,
-              fontWeight: 800,
-              letterSpacing: "-0.02em",
-              textWrap: "pretty",
-            }}
-          >
+          <p className="kicker kicker--on-accent">Onze missie</p>
+          <p>
             Elk project opleveren zoals het is beloofd. Niet duurder, niet later en niet met minder
             kwaliteit. Dat is de belofte waarmee KH Bouw Kunst ooit begon en die belofte houden we
             nog elke dag vast.

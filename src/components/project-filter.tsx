@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { projects, projectTypes } from "@/lib/content";
+import { projects, projectTypes } from "@/content";
 import { ProjectCard } from "./project-card";
 
 export function ProjectFilter() {
@@ -10,7 +10,7 @@ export function ProjectFilter() {
 
   return (
     <>
-      <div className="chip-row" style={{ marginBottom: "clamp(28px,3vw,44px)" }}>
+      <div className="chip-row projects-list__filters">
         {projectTypes.map((type) => (
           <button
             key={type}

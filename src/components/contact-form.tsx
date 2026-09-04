@@ -2,8 +2,7 @@
 
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
-import { projectTypeOptions } from "@/lib/content";
-import { site } from "@/lib/site";
+import { projectTypeOptions, site } from "@/content";
 import { submitQuote } from "@/lib/actions";
 import { emptyQuoteState, type QuoteState } from "@/lib/quote";
 

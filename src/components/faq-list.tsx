@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { LuMinus, LuPlus } from "react-icons/lu";
-import { faqs } from "@/lib/content";
+import { faqs } from "@/content";
 
 export function FaqList() {
   const [open, setOpen] = useState(0);

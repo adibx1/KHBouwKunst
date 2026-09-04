@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Archivo } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { site } from "@/lib/site";
+import { site } from "@/content";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -29,21 +29,13 @@ export const metadata: Metadata = {
   icons: { icon: "/logo.png" },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="nl" data-scroll-behavior="smooth" className={archivo.variable}>
       <body>
-        <div
-          style={{
-            minHeight: "100vh",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
+        <div className="site-shell">
           <SiteHeader />
-          <main style={{ flex: "1 0 auto" }}>{children}</main>
+          <main className="site-main">{children}</main>
           <SiteFooter />
         </div>
       </body>
