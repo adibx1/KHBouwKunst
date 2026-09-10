@@ -51,6 +51,7 @@ export const de: Dictionary = {
     viewProjects: "Bekijk onze projecten",
     otherServices: "Andere diensten",
     languageLabel: "Taal",
+    menuLabel: "Hoofdmenu",
   },
 
   meta: {

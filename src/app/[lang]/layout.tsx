@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { site } from "@/content";
-import { defaultLocale, isLocale, localeMeta, locales, publishedLocales } from "@/i18n/config";
+import { defaultLocale, isLocale, localeMeta, locales } from "@/i18n/config";
 import { dictionaryFor } from "@/i18n/dictionary";
 import { navOrder, path } from "@/i18n/routes";
 import { localBusinessSchema } from "@/lib/seo";
@@ -61,16 +61,18 @@ export default async function LocaleLayout({ children }: { children: React.React
           <SiteHeader
             locale={locale}
             defaultLocale={defaultLocale}
-            nav={navOrder.map((key) => ({ href: path(locale, key), label: dict.nav[key] }))}
+            nav={navOrder.map((key) => ({
+              routeKey: key,
+              href: path(locale, key),
+              label: dict.nav[key],
+            }))}
             cta={dict.common.quoteCta}
             ctaHref={path(locale, "contact")}
-            languages={publishedLocales.map((code) => ({
-              code,
-              label: localeMeta[code].label,
-            }))}
+            languages={locales.map((code) => ({ code, label: localeMeta[code].label }))}
             languageLabel={dict.common.languageLabel}
             homeHref={path(locale, "home")}
             homeLabel={`${site.name}, ${dict.nav.home}`}
+            menuLabel={dict.common.menuLabel}
           />
           <main className="site-main">{children}</main>
           <SiteFooter locale={locale} dict={dict} />
