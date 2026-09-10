@@ -82,7 +82,7 @@ export default function AboutPage() {
       </section>
 
       <section className="band-accent mission">
-        <div className="wrap wrap--mid pad-xl">
+        <div className="wrap pad-xl">
           <p className="kicker kicker--on-accent">Onze missie</p>
           <p>
             Elk project opleveren zoals het is beloofd. Niet duurder, niet later en niet met minder

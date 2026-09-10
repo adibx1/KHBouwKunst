@@ -38,7 +38,7 @@ export default function FaqPage() {
         alt="Afgewerkte woonkamer na een renovatie"
       />
 
-      <section className="wrap wrap--narrow faq-page">
+      <section className="wrap faq-page">
         <FaqList />
 
         <div className="faq__foot">
