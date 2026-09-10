@@ -1,5 +1,6 @@
 "use server";
 
+import { sendQuoteMail } from "./mail";
 import type { QuoteState } from "./quote";
 
 const required: Array<[field: string, label: string]> = [
@@ -30,8 +31,6 @@ export async function submitQuote(
     return { status: "error", name: value("naam"), errors };
   }
 
-  // TODO: deliver the request. Drop in a transactional mail provider or CRM
-  // call here (the aanvraag object below holds every submitted field).
   const aanvraag = {
     naam: value("naam"),
     telefoon: value("telefoon"),
@@ -41,7 +40,24 @@ export async function submitQuote(
     bericht: value("bericht"),
     ontvangen: new Date().toISOString(),
   };
-  console.info("[offerteaanvraag]", aanvraag);
+
+  try {
+    const sent = await sendQuoteMail(aanvraag);
+    if (!sent) {
+      // No SMTP credentials in this environment. Log it so a local or preview
+      // run still shows the submission instead of silently dropping it.
+      console.warn("[offerteaanvraag] SMTP niet geconfigureerd", aanvraag);
+    }
+  } catch (error) {
+    console.error("[offerteaanvraag] versturen mislukt", error);
+    return {
+      status: "error",
+      name: aanvraag.naam,
+      errors: {
+        form: "Uw aanvraag kon niet worden verstuurd. Probeer het opnieuw of bel ons direct.",
+      },
+    };
+  }
 
   return { status: "sent", name: aanvraag.naam, errors: {} };
 }

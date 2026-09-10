@@ -1157,6 +1157,14 @@ a {
   color: #ae1800;
 }
 
+.form__error {
+  border: 1px solid #ae1800;
+  padding: 12px 14px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ae1800;
+}
+
 .form__submit {
   justify-self: start;
 }

@@ -95,6 +95,12 @@ export function ContactForm() {
         <textarea name="bericht" rows={5} />
       </label>
 
+      {state.errors.form ? (
+        <p className="form__error" role="alert">
+          {state.errors.form}
+        </p>
+      ) : null}
+
       <SubmitButton />
     </form>
   );
