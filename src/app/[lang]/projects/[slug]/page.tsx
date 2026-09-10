@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { CtaBand } from "@/components/cta-band";
 import { projectBySlug } from "@/content";
 import { projectIds } from "@/content/structure";
 import { locales } from "@/i18n/config";
 import { dictionaryFor, getDictionary, getLocale } from "@/i18n/dictionary";
 import { path } from "@/i18n/routes";
+import { projectIdForSlug, slugsAcrossLocales } from "@/content/lookup";
 import { pageMetadata } from "@/lib/seo";
 
 export async function generateStaticParams() {
@@ -19,16 +20,6 @@ export async function generateStaticParams() {
     }
   }
   return params;
-}
-
-async function slugsFor(id: string) {
-  const entries = await Promise.all(
-    locales.map(async (locale) => {
-      const dict = await dictionaryFor(locale);
-      return [locale, dict.slugs.projects[id as keyof typeof dict.slugs.projects]] as const;
-    }),
-  );
-  return Object.fromEntries(entries);
 }
 
 export async function generateMetadata(
@@ -45,7 +36,7 @@ export async function generateMetadata(
     key: "projects",
     title: `${project.title} | ${dict.projects.metaSuffix}`,
     description: project.brief,
-    slugs: await slugsFor(project.id),
+    slugs: await slugsAcrossLocales("projects", project.id),
     image: project.imgAfter,
   });
 }
@@ -56,7 +47,11 @@ export default async function ProjectPage(props: PageProps<"/[lang]/projects/[sl
   const dict = await getDictionary();
 
   const project = projectBySlug(dict, locale, slug);
-  if (!project) notFound();
+  if (!project) {
+    const id = await projectIdForSlug(slug);
+    if (id) redirect(path(locale, "projects", dict.slugs.projects[id]));
+    notFound();
+  }
 
   const facts = [
     { label: dict.projects.facts.type, value: project.typeLabel },

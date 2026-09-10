@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { LuCheck } from "react-icons/lu";
 import { CtaBand } from "@/components/cta-band";
 import { serviceBySlug, servicesIn } from "@/content";
@@ -9,6 +9,7 @@ import { serviceIds } from "@/content/structure";
 import { locales } from "@/i18n/config";
 import { dictionaryFor, getDictionary, getLocale } from "@/i18n/dictionary";
 import { path } from "@/i18n/routes";
+import { serviceIdForSlug, slugsAcrossLocales } from "@/content/lookup";
 import { pageMetadata } from "@/lib/seo";
 
 export async function generateStaticParams() {
@@ -20,16 +21,6 @@ export async function generateStaticParams() {
     }
   }
   return params;
-}
-
-async function slugsFor(id: string) {
-  const entries = await Promise.all(
-    locales.map(async (locale) => {
-      const dict = await dictionaryFor(locale);
-      return [locale, dict.slugs.services[id as keyof typeof dict.slugs.services]] as const;
-    }),
-  );
-  return Object.fromEntries(entries);
 }
 
 export async function generateMetadata(
@@ -46,7 +37,7 @@ export async function generateMetadata(
     key: "services",
     title: service.meta.title,
     description: service.meta.description,
-    slugs: await slugsFor(service.id),
+    slugs: await slugsAcrossLocales("services", service.id),
     image: service.heroImg,
   });
 }
@@ -57,7 +48,11 @@ export default async function ServicePage(props: PageProps<"/[lang]/services/[sl
   const dict = await getDictionary();
 
   const service = serviceBySlug(dict, locale, slug);
-  if (!service) notFound();
+  if (!service) {
+    const id = await serviceIdForSlug(slug);
+    if (id) redirect(path(locale, "services", dict.slugs.services[id]));
+    notFound();
+  }
 
   const others = servicesIn(dict, locale);
 
