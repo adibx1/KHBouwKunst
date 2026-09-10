@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 import { LuMinus, LuPlus } from "react-icons/lu";
-import { faqs } from "@/content";
 
-export function FaqList() {
+export function FaqList({ items }: { items: Array<{ q: string; a: string }> }) {
   const [open, setOpen] = useState(0);
 
   return (
     <div>
-      {faqs.map((faq, i) => {
+      {items.map((faq, i) => {
         const isOpen = open === i;
         return (
           <div className="faq__row" key={faq.q}>

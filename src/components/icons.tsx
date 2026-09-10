@@ -18,10 +18,6 @@ import {
   LuWrench,
 } from "react-icons/lu";
 
-/**
- * The icon set the design system draws from (Lucide, via react-icons).
- * Content data references these by key so the copy stays free of markup.
- */
 export const icons = {
   house: LuHouse,
   hammer: LuHammer,
@@ -45,7 +41,6 @@ export type IconKey = keyof typeof icons;
 
 type IconProps = IconBaseProps & {
   name: IconKey;
-  /** Stroke weight, matching the design system's line icons. */
   weight?: number;
 };
 

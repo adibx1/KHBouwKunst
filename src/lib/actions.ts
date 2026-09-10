@@ -1,15 +1,11 @@
 "use server";
 
+import { defaultLocale, isLocale } from "@/i18n/config";
+import { dictionaryFor } from "@/i18n/dictionary";
 import { sendQuoteMail } from "./mail";
 import type { QuoteState } from "./quote";
 
-const required: Array<[field: string, label: string]> = [
-  ["naam", "Vul uw naam in."],
-  ["telefoon", "Vul uw telefoonnummer in."],
-  ["email", "Vul uw e mailadres in."],
-  ["locatie", "Vul de locatie van het project in."],
-  ["type", "Kies een type project."],
-];
+const required = ["naam", "telefoon", "email", "locatie", "type"] as const;
 
 export async function submitQuote(
   _prev: QuoteState,
@@ -17,14 +13,18 @@ export async function submitQuote(
 ): Promise<QuoteState> {
   const value = (field: string) => (formData.get(field) ?? "").toString().trim();
 
+  const submitted = value("locale");
+  const locale = isLocale(submitted) ? submitted : defaultLocale;
+  const messages = (await dictionaryFor(locale)).form.errors;
+
   const errors: Record<string, string> = {};
-  for (const [field, message] of required) {
-    if (!value(field)) errors[field] = message;
+  for (const field of required) {
+    if (!value(field)) errors[field] = messages[field];
   }
 
   const email = value("email");
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    errors.email = "Dit e mailadres lijkt niet te kloppen.";
+    errors.email = messages.emailInvalid;
   }
 
   if (Object.keys(errors).length > 0) {
@@ -42,10 +42,8 @@ export async function submitQuote(
   };
 
   try {
-    const sent = await sendQuoteMail(aanvraag);
+    const sent = await sendQuoteMail(aanvraag, locale);
     if (!sent) {
-      // No SMTP credentials in this environment. Log it so a local or preview
-      // run still shows the submission instead of silently dropping it.
       console.warn("[offerteaanvraag] SMTP niet geconfigureerd", aanvraag);
     }
   } catch (error) {
@@ -53,9 +51,7 @@ export async function submitQuote(
     return {
       status: "error",
       name: aanvraag.naam,
-      errors: {
-        form: "Uw aanvraag kon niet worden verstuurd. Probeer het opnieuw of bel ons direct.",
-      },
+      errors: { form: messages.failed },
     };
   }
 

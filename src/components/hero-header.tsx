@@ -5,13 +5,11 @@ type HeroHeaderProps = {
   kicker: string;
   title: string;
   lede?: string;
-  /** Image basename in /public/images, without the extension. */
   image: string;
   alt: string;
   children?: ReactNode;
 };
 
-/** The photo hero at the top of every interior page. */
 export function HeroHeader({ kicker, title, lede, image, alt, children }: HeroHeaderProps) {
   return (
     <section className="hero hero--short">

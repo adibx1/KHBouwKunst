@@ -1,10 +1,3 @@
-/* ==========================================================================
-   KH Bouw Kunst — design tokens and component styles.
-   Ported from the "Modernist" design system (Archivo, square corners,
-   2px rules) with the brand overrides from the design canvas: yellow
-   accent on near-black ink.
-   ========================================================================== */
-
 :root {
   --ink: #161514;
   --text: #201e1d;
@@ -12,8 +5,6 @@
   --accent-ink: #3d3212;
   --paper: #fff;
 
-  /* Hover feedback is neutral: a faint ink tint, or a darker yellow on
-     surfaces that are already yellow. Nothing turns yellow on hover. */
   --hover-tint: #201e1d0a;
   --hover-tint-strong: #201e1d14;
   --accent-hover: #dc9d0c;
@@ -107,8 +98,6 @@ a {
   white-space: nowrap;
 }
 
-/* — layout ————————————————————————————————————————————————————————— */
-
 .wrap {
   max-width: var(--wrap);
   margin: 0 auto;
@@ -143,8 +132,6 @@ a {
   border-top: var(--rule);
   border-bottom: var(--rule);
 }
-
-/* — type ——————————————————————————————————————————————————————————— */
 
 .kicker {
   margin-bottom: 16px;
@@ -197,8 +184,6 @@ a {
   text-transform: uppercase;
 }
 
-/* Opt a heading into the brand yellow. Listed alongside the hero selector so
-   it still wins over the hero's default light text. */
 .title-accent,
 .hero .title-accent {
   color: var(--accent);
@@ -228,8 +213,6 @@ a {
 .body-text + .body-text {
   margin-top: 18px;
 }
-
-/* — buttons and links —————————————————————————————————————————————— */
 
 .btn {
   display: inline-flex;
@@ -313,7 +296,6 @@ a {
   background: var(--hover-tint-strong);
 }
 
-/* The chosen filter, which is a state rather than hover feedback. */
 .chip[aria-pressed="true"] {
   background: var(--ink);
   color: var(--light);
@@ -328,8 +310,6 @@ a {
   flex-wrap: wrap;
   gap: 10px;
 }
-
-/* — header ————————————————————————————————————————————————————————— */
 
 .header {
   position: sticky;
@@ -391,6 +371,35 @@ a {
   bottom: 26px;
   height: 3px;
   background: var(--accent);
+}
+
+.header__langs {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-inline-start: auto;
+}
+
+.header__lang {
+  padding: 6px 9px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--muted-2);
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.header__lang:hover {
+  background: var(--hover-tint-strong);
+  color: var(--text);
+}
+
+.header__lang[aria-current="true"] {
+  color: var(--ink);
+  border-color: var(--text);
 }
 
 .header__cta {
@@ -468,6 +477,10 @@ a {
 
 @media (max-width: 1079px) {
   .header__nav,
+  .header__langs {
+    display: none;
+  }
+
   .header__cta {
     display: none;
   }
@@ -482,8 +495,6 @@ a {
     display: none;
   }
 }
-
-/* — hero ——————————————————————————————————————————————————————————— */
 
 .hero {
   position: relative;
@@ -569,14 +580,12 @@ a {
   text-wrap: pretty;
 }
 
-/* Page titles sit on the dark scrim when a hero carries a photo. */
 .hero .title-page,
 .hero .title-hero {
   color: var(--light);
   margin-bottom: 22px;
 }
 
-/* The last thing in a hero never carries a trailing gap. */
 .hero__body > :last-child {
   margin-bottom: 0;
 }
@@ -603,8 +612,6 @@ a {
   flex-wrap: wrap;
   gap: 14px;
 }
-
-/* — image frames ——————————————————————————————————————————————————— */
 
 .frame {
   position: relative;
@@ -641,8 +648,6 @@ a {
   padding: 10px 14px;
 }
 
-/* — stats —————————————————————————————————————————————————————————— */
-
 .stats {
   max-width: var(--wrap);
   margin: 0 auto;
@@ -673,8 +678,6 @@ a {
   text-transform: uppercase;
 }
 
-/* — generic grids ——————————————————————————————————————————————————— */
-
 .split {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -695,8 +698,6 @@ a {
   justify-content: space-between;
   gap: 24px;
 }
-
-/* — service tiles (home) ———————————————————————————————————————————— */
 
 .tiles {
   display: grid;
@@ -737,8 +738,6 @@ a {
   margin-bottom: 22px;
 }
 
-/* — numbered / icon cells ——————————————————————————————————————————— */
-
 .cells {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -778,8 +777,6 @@ a {
   margin-bottom: 20px;
 }
 
-/* — project cards ——————————————————————————————————————————————————— */
-
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
@@ -817,8 +814,6 @@ a {
   text-decoration-thickness: 2px;
   text-underline-offset: 5px;
 }
-
-/* — service cards (overview) ———————————————————————————————————————— */
 
 .service-cards {
   display: grid;
@@ -881,8 +876,6 @@ a {
   margin-bottom: 20px;
 }
 
-/* — checklists ————————————————————————————————————————————————————— */
-
 .checklist__item {
   display: flex;
   gap: 16px;
@@ -902,8 +895,6 @@ a {
   color: var(--text);
   text-wrap: pretty;
 }
-
-/* — galleries —————————————————————————————————————————————————————— */
 
 .gallery {
   display: grid;
@@ -934,8 +925,6 @@ a {
   color: var(--muted-3);
 }
 
-/* — fact grid —————————————————————————————————————————————————————— */
-
 .facts {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -962,8 +951,6 @@ a {
   font-size: 17px;
   font-weight: 800;
 }
-
-/* — reviews ———————————————————————————————————————————————————————— */
 
 .reviews {
   display: grid;
@@ -999,8 +986,6 @@ a {
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
-
-/* — steps —————————————————————————————————————————————————————————— */
 
 .step {
   display: flex;
@@ -1038,8 +1023,6 @@ a {
   max-width: 72ch;
   text-wrap: pretty;
 }
-
-/* — faq ———————————————————————————————————————————————————————————— */
 
 .faq__row {
   border-bottom: var(--rule-soft);
@@ -1098,8 +1081,6 @@ a {
   letter-spacing: -0.01em;
   max-width: 30ch;
 }
-
-/* — contact ———————————————————————————————————————————————————————— */
 
 .form {
   border-top: var(--rule);
@@ -1238,8 +1219,6 @@ a.contact-row__value:hover {
   height: clamp(240px, 28vw, 340px);
 }
 
-/* — cta bands —————————————————————————————————————————————————————— */
-
 .cta {
   display: flex;
   flex-wrap: wrap;
@@ -1259,8 +1238,6 @@ a.contact-row__value:hover {
   text-wrap: pretty;
   margin-top: 12px;
 }
-
-/* — footer ————————————————————————————————————————————————————————— */
 
 .footer {
   background: var(--ink);
@@ -1355,8 +1332,6 @@ a.contact-row__value:hover {
   letter-spacing: 0.06em;
 }
 
-/* — misc ——————————————————————————————————————————————————————————— */
-
 .not-found {
   display: grid;
   gap: 24px;
@@ -1373,14 +1348,6 @@ a.contact-row__value:hover {
   }
 }
 
-/* ==========================================================================
-   Page blocks
-   One class per section of the site. Pages stay as plain markup; every
-   measurement lives here.
-   ========================================================================== */
-
-/* — app shell — */
-
 .site-shell {
   min-height: 100vh;
   display: flex;
@@ -1391,14 +1358,10 @@ a.contact-row__value:hover {
   flex: 1 0 auto;
 }
 
-/* — shared section furniture — */
-
-/** An h2 that opens a block, with its standard gap to the content below. */
 .section-heading {
   margin-bottom: 48px;
 }
 
-/** The paragraph that introduces a section, under its heading. */
 .section-lede {
   margin-bottom: 40px;
   font-size: 17px;
@@ -1407,8 +1370,6 @@ a.contact-row__value:hover {
   max-width: 60ch;
   text-wrap: pretty;
 }
-
-/* — home — */
 
 .home-intro {
   padding-top: clamp(56px, 7vw, 104px);
@@ -1438,8 +1399,6 @@ a.contact-row__value:hover {
   font-size: 13px;
 }
 
-/* — over ons — */
-
 .about-story h2 {
   font-size: clamp(26px, 3.2vw, 42px);
   margin-bottom: 26px;
@@ -1459,8 +1418,6 @@ a.contact-row__value:hover {
   text-wrap: pretty;
 }
 
-/* — diensten — */
-
 .services-why h2 {
   color: var(--light);
   max-width: 22ch;
@@ -1473,8 +1430,6 @@ a.contact-row__value:hover {
   line-height: 1.7;
   text-wrap: pretty;
 }
-
-/* — dienst detail — */
 
 .service-body p {
   margin-bottom: 20px;
@@ -1506,8 +1461,6 @@ a.contact-row__value:hover {
   border-top: var(--rule);
 }
 
-/* — projecten — */
-
 .projects-list {
   padding-block: clamp(32px, 4vw, 48px);
 }
@@ -1529,19 +1482,13 @@ a.contact-row__value:hover {
   margin-bottom: 18px;
 }
 
-/* — veelgestelde vragen — */
-
 .faq-page {
   padding-block: clamp(36px, 5vw, 72px);
 }
 
-/* — contact — */
-
 .contact-rows h2 {
   margin-bottom: 26px;
 }
-
-/* — closing cta band — */
 
 .cta--accent h2 {
   color: var(--ink);
@@ -1558,16 +1505,6 @@ a.contact-row__value:hover {
 .cta--ink p {
   color: var(--light-3);
 }
-
-
-/* ==========================================================================
-   Phone
-   Sections all share one gutter. Cells whose borders act as grid dividers
-   (tiles, stat cells, reason cells, reviews) drop their own side padding so
-   their text starts on the same line as every heading. Self-contained boxes
-   (cards, the FAQ footer, the sent-confirmation) keep their padding, because
-   there the border is the edge of the box rather than a divider.
-   ========================================================================== */
 
 @media (max-width: 640px) {
   .stats__cell,

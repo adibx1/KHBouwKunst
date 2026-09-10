@@ -3,29 +3,35 @@ import Image from "next/image";
 import Link from "next/link";
 import { HeroHeader } from "@/components/hero-header";
 import { Icon } from "@/components/icons";
-import { services } from "@/content";
+import { servicesIn } from "@/content";
+import { getDictionary, getLocale } from "@/i18n/dictionary";
+import { path } from "@/i18n/routes";
+import { metadataFor } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Diensten | Nieuwbouw, verbouwing, renovatie en meer",
-  description:
-    "Bekijk alle diensten van KH Bouw Kunst: nieuwbouw, verbouwing, aanbouw, badkamer en keuken, dakwerk en onderhoud. Vakwerk voor heel Nederland.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return metadataFor(await getLocale(), "services", "img_302");
+}
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const locale = await getLocale();
+  const dict = await getDictionary();
+  const t = dict.services;
+  const services = servicesIn(dict, locale);
+
   return (
     <>
       <HeroHeader
-        kicker="Diensten"
-        title="Van fundering tot laatste likje verf"
-        lede="KH Bouw Kunst voert bouwprojecten uit in elke fase en op elke schaal. Bekijk hieronder waarmee we u kunnen helpen."
+        kicker={t.kicker}
+        title={t.title}
+        lede={t.lede}
         image="img_302"
-        alt="Opgeleverde woning gebouwd door KH Bouw Kunst"
+        alt={t.heroAlt}
       />
 
       <section className="wrap pad-lg">
         <div className="service-cards">
           {services.map((service) => (
-            <Link key={service.slug} href={`/diensten/${service.slug}`} className="service-card">
+            <Link key={service.id} href={service.href} className="service-card">
               <div className="service-card__media">
                 <Image
                   src={`/images/${service.cardImg}.jpg`}
@@ -47,15 +53,11 @@ export default function ServicesPage() {
 
       <section className="band-ink services-why">
         <div className="wrap pad-xl split split--tight">
-          <h2 className="title-sub">Waarom voor deze diensten kiezen bij KH Bouw Kunst</h2>
+          <h2 className="title-sub">{t.whyTitle}</h2>
           <div>
-            <p>
-              Elke dienst wordt uitgevoerd door hetzelfde vaste team dat ook uw aanspreekpunt is.
-              Dat betekent minder schakels, minder ruis en een aannemer die de context van uw
-              project echt kent, ook als er tijdens de uitvoering iets moet worden bijgestuurd.
-            </p>
-            <Link href="/contact" className="btn btn--accent btn--sm">
-              Offerte aanvragen
+            <p>{t.whyText}</p>
+            <Link href={path(locale, "contact")} className="btn btn--accent btn--sm">
+              {dict.common.quoteCta}
             </Link>
           </div>
         </div>

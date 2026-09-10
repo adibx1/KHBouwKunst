@@ -2,15 +2,32 @@
 
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
-import { projectTypeOptions, site } from "@/content";
 import { submitQuote } from "@/lib/actions";
 import { emptyQuoteState, type QuoteState } from "@/lib/quote";
 
-function SubmitButton() {
+type Labels = {
+  title: string;
+  naam: string;
+  telefoon: string;
+  email: string;
+  locatie: string;
+  type: string;
+  typePlaceholder: string;
+  bericht: string;
+  submit: string;
+  submitting: string;
+  sentKicker: string;
+  sentTitle: string;
+  sentText: string;
+  sentAgain: string;
+  options: string[];
+};
+
+function SubmitButton({ labels }: { labels: Labels }) {
   const { pending } = useFormStatus();
   return (
     <button type="submit" className="btn btn--accent form__submit" disabled={pending}>
-      {pending ? "Versturen…" : "Verstuur aanvraag"}
+      {pending ? labels.submitting : labels.submit}
     </button>
   );
 }
@@ -45,20 +62,32 @@ function Field({
   );
 }
 
-export function ContactForm() {
+export function ContactForm({
+  labels,
+  locale,
+  contactHref,
+  phone,
+}: {
+  labels: Labels;
+  locale: string;
+  contactHref: string;
+  phone: string;
+}) {
   const [state, formAction] = useActionState<QuoteState, FormData>(submitQuote, emptyQuoteState);
 
   if (state.status === "sent") {
     return (
       <div className="sent">
-        <p className="kicker kicker--accent">Aanvraag verstuurd</p>
-        <h2>Bedankt, {state.name || "voor uw aanvraag"}</h2>
+        <p className="kicker kicker--accent">{labels.sentKicker}</p>
+        <h2>
+          {labels.sentTitle}
+          {state.name ? `, ${state.name}` : ""}
+        </h2>
         <p>
-          We hebben uw aanvraag ontvangen en reageren binnen één werkdag. Heeft u het snel nodig,
-          bel dan direct: {site.phone}.
+          {labels.sentText} {phone}
         </p>
-        <a href="/contact" className="btn btn--sm btn--outline-light">
-          Nieuwe aanvraag
+        <a href={contactHref} className="btn btn--sm btn--outline-light">
+          {labels.sentAgain}
         </a>
       </div>
     );
@@ -66,22 +95,24 @@ export function ContactForm() {
 
   return (
     <form action={formAction} className="form" noValidate>
-      <h2 className="title-block">Offerte aanvragen</h2>
+      <h2 className="title-block">{labels.title}</h2>
+
+      <input type="hidden" name="locale" value={locale} />
 
       <div className="form__grid">
-        <Field name="naam" label="Naam" error={state.errors.naam} />
-        <Field name="telefoon" label="Telefoonnummer" type="tel" error={state.errors.telefoon} />
-        <Field name="email" label="E mailadres" type="email" error={state.errors.email} />
-        <Field name="locatie" label="Locatie van het project" error={state.errors.locatie} />
+        <Field name="naam" label={labels.naam} error={state.errors.naam} />
+        <Field name="telefoon" label={labels.telefoon} type="tel" error={state.errors.telefoon} />
+        <Field name="email" label={labels.email} type="email" error={state.errors.email} />
+        <Field name="locatie" label={labels.locatie} error={state.errors.locatie} />
       </div>
 
       <label className="field">
-        <span>Type project</span>
+        <span>{labels.type}</span>
         <select name="type" defaultValue="" required>
           <option value="" disabled>
-            Maak een keuze
+            {labels.typePlaceholder}
           </option>
-          {projectTypeOptions.map((option) => (
+          {labels.options.map((option) => (
             <option key={option} value={option}>
               {option}
             </option>
@@ -91,7 +122,7 @@ export function ContactForm() {
       </label>
 
       <label className="field">
-        <span>Bericht of korte omschrijving van de wensen</span>
+        <span>{labels.bericht}</span>
         <textarea name="bericht" rows={5} />
       </label>
 
@@ -101,7 +132,7 @@ export function ContactForm() {
         </p>
       ) : null}
 
-      <SubmitButton />
+      <SubmitButton labels={labels} />
     </form>
   );
 }

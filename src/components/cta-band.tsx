@@ -5,11 +5,9 @@ type CtaBandProps = {
   text?: string;
   buttonLabel: string;
   href?: string;
-  /** Yellow band with a dark button, or dark band with a yellow one. */
   tone?: "accent" | "ink";
 };
 
-/** The closing call-to-action band that ends most pages. */
 export function CtaBand({
   heading,
   text,
