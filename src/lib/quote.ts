@@ -5,3 +5,13 @@ export type QuoteState = {
 };
 
 export const emptyQuoteState: QuoteState = { status: "idle", name: "", errors: {} };
+
+export type Aanvraag = {
+  naam: string;
+  telefoon: string;
+  email: string;
+  locatie: string;
+  type: string;
+  bericht: string;
+  ontvangen: string;
+};

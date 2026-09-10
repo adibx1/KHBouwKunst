@@ -1,17 +1,19 @@
 import "server-only";
 
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 import nodemailer, { type Transporter } from "nodemailer";
 import { site } from "@/content";
-
-export type Aanvraag = {
-  naam: string;
-  telefoon: string;
-  email: string;
-  locatie: string;
-  type: string;
-  bericht: string;
-  ontvangen: string;
-};
+import {
+  LOGO_CID,
+  companyHtml,
+  companySubject,
+  companyText,
+  visitorHtml,
+  visitorSubject,
+  visitorText,
+} from "./mail-templates";
+import type { Aanvraag } from "./quote";
 
 /**
  * Every SMTP setting comes from the environment. Nothing is hardcoded, so the
@@ -56,71 +58,72 @@ function getTransporter(config: NonNullable<ReturnType<typeof readConfig>>) {
   return transporter;
 }
 
+let logo: Buffer | null | undefined;
+
+/**
+ * The logo travels with the mail as an inline attachment instead of a remote
+ * image, because most clients block remote images until the reader allows them.
+ * next.config.ts traces the file into the deployed function.
+ */
+async function readLogo() {
+  if (logo !== undefined) return logo;
+  try {
+    logo = await readFile(path.join(process.cwd(), "public", "logo-email.png"));
+  } catch {
+    logo = null;
+  }
+  return logo;
+}
+
+async function logoAttachment() {
+  const content = await readLogo();
+  if (!content) return [];
+  return [{ filename: "kh-bouw-kunst.png", content, cid: LOGO_CID, contentDisposition: "inline" as const }];
+}
+
 // Anything that lands in a mail header is stripped of CR/LF first, so a
 // crafted field cannot inject extra headers.
 const header = (value: string) => value.replace(/[\r\n]+/g, " ").trim();
 
-const escape = (value: string) =>
-  value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-
-function bodyText(aanvraag: Aanvraag) {
-  return [
-    `Naam:       ${aanvraag.naam}`,
-    `Telefoon:   ${aanvraag.telefoon}`,
-    `E-mail:     ${aanvraag.email}`,
-    `Locatie:    ${aanvraag.locatie}`,
-    `Type:       ${aanvraag.type}`,
-    "",
-    "Bericht:",
-    aanvraag.bericht || "(geen bericht)",
-    "",
-    `Ontvangen:  ${new Date(aanvraag.ontvangen).toLocaleString("nl-NL")}`,
-  ].join("\n");
-}
-
-function bodyHtml(aanvraag: Aanvraag) {
-  const row = (label: string, value: string) =>
-    `<tr><th align="left" style="padding:4px 16px 4px 0;font-weight:600;white-space:nowrap">${label}</th><td style="padding:4px 0">${escape(value)}</td></tr>`;
-
-  return `<div style="font-family:system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.5;color:#201e1d">
-  <h2 style="margin:0 0 16px">Nieuwe offerteaanvraag</h2>
-  <table cellpadding="0" cellspacing="0" style="border-collapse:collapse">
-    ${row("Naam", aanvraag.naam)}
-    ${row("Telefoon", aanvraag.telefoon)}
-    ${row("E-mail", aanvraag.email)}
-    ${row("Locatie", aanvraag.locatie)}
-    ${row("Type", aanvraag.type)}
-  </table>
-  <p style="margin:16px 0 4px;font-weight:600">Bericht</p>
-  <p style="margin:0;white-space:pre-wrap">${escape(aanvraag.bericht) || "<em>(geen bericht)</em>"}</p>
-  <p style="margin:24px 0 0;color:#7d7979;font-size:13px">Ontvangen op ${escape(new Date(aanvraag.ontvangen).toLocaleString("nl-NL"))} via ${escape(site.url)}</p>
-</div>`;
-}
-
 /**
- * Mails one quote request to the company inbox. Returns false when SMTP is not
- * configured yet, so the caller can decide what to tell the visitor. Throws
- * when SMTP is configured but the send fails.
+ * Mails one quote request to the company inbox and sends the visitor a
+ * confirmation. Returns false when SMTP is not configured yet, so the caller
+ * can decide what to tell the visitor. Throws when the notification to the
+ * company fails, because that is the mail the business cannot afford to miss.
  */
 export async function sendQuoteMail(aanvraag: Aanvraag): Promise<boolean> {
   const config = readConfig();
   if (!config) return false;
 
-  await getTransporter(config).sendMail({
+  const mailer = getTransporter(config);
+  const attachments = await logoAttachment();
+
+  await mailer.sendMail({
     from: config.from,
     to: config.to,
     // Answering the notification mails the visitor directly.
     replyTo: { name: header(aanvraag.naam), address: header(aanvraag.email) },
-    subject: header(
-      `Offerteaanvraag ${aanvraag.type} - ${aanvraag.naam} (${aanvraag.locatie})`,
-    ),
-    text: bodyText(aanvraag),
-    html: bodyHtml(aanvraag),
+    subject: header(companySubject(aanvraag)),
+    text: companyText(aanvraag),
+    html: companyHtml(aanvraag),
+    attachments,
   });
+
+  // The confirmation is a courtesy. A bounced or refused visitor address must
+  // not turn a request the company already received into an error.
+  try {
+    await mailer.sendMail({
+      from: config.from,
+      to: { name: header(aanvraag.naam), address: header(aanvraag.email) },
+      replyTo: config.to,
+      subject: visitorSubject(),
+      text: visitorText(aanvraag),
+      html: visitorHtml(aanvraag),
+      attachments,
+    });
+  } catch (error) {
+    console.error("[offerteaanvraag] bevestiging naar de aanvrager mislukt", error);
+  }
 
   return true;
 }
